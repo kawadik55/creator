@@ -1139,6 +1139,7 @@ Bot.on('photo', async (msg) =>
 {		
 try{	
 	const chatId = msg.chat.id.toString();
+	const firstname = msg.chat.first_name;
 	if(PRIVAT && !validAdmin(chatId) && !validUser(chatId)) return;//приватность
 	const file_id = msg.photo[msg.photo.length-1].file_id;
 	const caption = msg.caption;//подпись
@@ -1174,7 +1175,7 @@ try{
 		opt[name].caption = caption;
 		opt[name].caption_entities = caption_entities;
 		WriteFileJson(PathToPhoto+'/'+key+'/'+'FileCaption.json', opt);//сохраняем подписи в файл
-		WriteLogFile("New photo was loaded to "+path, 'не посылать');
+		WriteLogFile("New photo was loaded to "+path+ " by "+firstname, 'не посылать');
 		if(!LastKey[chatId]) LastKey[chatId] = '0';
 		Tree['Назад'].parent = LastKey[chatId];//Кнопка Назад с возвратом
 		await sendMessage(chatId, 'Поздравляю! Фотка '+name+' загружена!', klava('Назад'));
@@ -1188,6 +1189,7 @@ Bot.on('document', async (msg) =>
 {			
 try{
 	const chatId = msg.chat.id.toString();
+	const firstname = msg.chat.first_name;
 	if(PRIVAT && !validAdmin(chatId) && !validUser(chatId)) return;//приватность
 	const file_id = msg.document.file_id;
 	const file_size = msg.document.file_size;
@@ -1246,7 +1248,7 @@ try{
 		//переименуем файл
 		let newpath = path.replace(name,filename);
 		fs.renameSync(path, newpath);
-		WriteLogFile("New doc was loaded to "+newpath, 'не посылать');
+		WriteLogFile("New doc was loaded to "+newpath+" by "+firstname, 'не посылать');
 		if(!LastKey[chatId]) LastKey[chatId] = '0';
 		Tree['Назад'].parent = LastKey[chatId];//Кнопка Назад с возвратом
 		await sendMessage(chatId, 'Поздравляю! Файл '+filename+' загружен!', klava('Назад'));
@@ -1311,6 +1313,7 @@ Bot.on('video', async (msg) =>
 {			
 try{
 	const chatId = msg.chat.id.toString();
+	const firstname = msg.chat.first_name;
 	if(PRIVAT && !validAdmin(chatId) && !validUser(chatId)) return;//приватность
 	const file_id = msg.video.file_id;
 	const file_size = msg.video.file_size;
@@ -1369,7 +1372,7 @@ try{
 		//переименуем файл
 		let newpath = path.replace(name,filename);
 		fs.renameSync(path, newpath);
-		WriteLogFile("New video was loaded to "+newpath, 'не посылать');
+		WriteLogFile("New video was loaded to "+newpath+" by "+firstname, 'не посылать');
 		if(!LastKey[chatId]) LastKey[chatId] = '0';
 		Tree['Назад'].parent = LastKey[chatId];//Кнопка Назад с возвратом
 		await sendMessage(chatId, 'Поздравляю! Файл '+filename+' загружен!', klava('Назад'));
@@ -1390,6 +1393,7 @@ Bot.on('audio', async (msg) =>
 {			
 try{
 	const chatId = msg.chat.id.toString();
+	const firstname = msg.chat.first_name;
 	if(PRIVAT && !validAdmin(chatId) && !validUser(chatId)) return;//приватность
 	const file_id = msg.audio.file_id;
 	const file_size = msg.audio.file_size;
@@ -1448,7 +1452,7 @@ try{
 		//переименуем файл
 		let newpath = path.replace(name,filename);
 		fs.renameSync(path, newpath);
-		WriteLogFile("New audio was loaded to "+newpath, 'не посылать');
+		WriteLogFile("New audio was loaded to "+newpath+newpath+" by "+firstname, 'не посылать');
 		if(!LastKey[chatId]) LastKey[chatId] = '0';
 		Tree['Назад'].parent = LastKey[chatId];//Кнопка Назад с возвратом
 		await sendMessage(chatId, 'Поздравляю! Файл '+filename+' загружен!', klava('Назад'));
